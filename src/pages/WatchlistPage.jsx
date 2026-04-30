@@ -1,44 +1,38 @@
-import { useAppContext } from '../context/AppContext';
+import React from 'react';
+import './HomePage.css';
+import './WatchlistPage.css';
+
+
+
 
 function WatchlistPage() {
-  const { watchlistIds, mediaCatalog, clearWatchlist, toggleWatchlistItem } = useAppContext();
-
-  const watchlistItems = mediaCatalog.filter((mediaItem) => watchlistIds.includes(mediaItem.id));
+  const watchlists = [
+    { name: 'Weekend Picks', count: 6 },
+    { name: 'Sci-Fi Favorites', count: 12 },
+    { name: 'Must Watch TV', count: 4 }
+  ];
 
   return (
     <main style={{ padding: '2rem' }}>
       <h1>Watchlist</h1>
-      <p>Your saved watchlist titles.</p>
+      <p>Your saved watchlists and titles.</p>
 
       <section aria-labelledby="watchlists-title" style={{ marginTop: '1.5rem' }}>
-        <h2 id="watchlists-title">Saved Items ({watchlistItems.length})</h2>
-
-        {watchlistItems.length === 0 ? (
-          <p>No saved titles yet. Add items from Search.</p>
-        ) : (
-          <>
-            <button type="button" onClick={clearWatchlist} style={{ marginBottom: '1rem', cursor: 'pointer' }}>
-              Clear Watchlist
-            </button>
-            <ul>
-              {watchlistItems.map((mediaItem) => (
-                <li key={mediaItem.id} style={{ marginBottom: '0.7rem' }}>
-                  {mediaItem.title} — {mediaItem.type} • {mediaItem.genre} • ⭐ {mediaItem.rating}
-                  <button
-                    type="button"
-                    onClick={() => toggleWatchlistItem(mediaItem.id)}
-                    style={{ marginLeft: '0.6rem', cursor: 'pointer' }}
-                  >
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
+        <h2 id="watchlists-title">Saved Watchlists</h2>
+        <ul>
+          {watchlists.map((watchlist) => (
+            <li key={watchlist.name}>
+              {watchlist.name} ({watchlist.count} items)
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );
 }
 
+
+
+
 export default WatchlistPage;
+
