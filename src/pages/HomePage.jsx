@@ -1,33 +1,73 @@
-import './HomePage.css';
+import { useState, useEffect } from "react";
+import MovieGrid from "../components/MovieGrid";
 
+const API_KEY = "327acdc6";
 
-function HomePage() {
- const trending = [
-   'The Last Horizon',
-   'Neon District',
-   'Echoes of Time',
-   'Shadow Protocol',
-   'Midnight Signal'
- ];
+const categories = ["action", "comedy", "sci-fi", "drama", "animation"];
 
+export default function HomePage() {
+  const [rows, setRows] = useState({});
+  const [featured, setFeatured] = useState(null);
 
- return (
-   <main style={{ padding: '2rem' }}>
-     <h1>Home</h1>
-     <p>Browse and discover trending movies and TV shows.</p>
+  useEffect(() => {
+    const fetchData = async () => {
+      let firstSet = false;
+      const temp = {};
 
+      for (const cat of categories) {
+        try {
+          const res = await fetch(
+            `https://www.omdbapi.com/?s=${cat}&apikey=${API_KEY}`
+          );
+          const data = await res.json();
 
-     <section aria-labelledby="trending-title" style={{ marginTop: '1.5rem' }}>
-       <h2 id="trending-title">Trending Now</h2>
-       <ul>
-         {trending.map((title) => (
-           <li key={title}>{title}</li>
-         ))}
-       </ul>
-     </section>
-   </main>
- );
+          const movies =
+            data.Search?.map((m) => ({
+              id: m.imdbID,
+              title: m.Title,
+              image:
+                m.Poster !== "N/A"
+                  ? m.Poster
+                  : "https://via.placeholder.com/300x450",
+            })) || [];
+
+          temp[cat] = movies;
+
+          if (!firstSet && movies.length > 0) {
+            setFeatured(movies[0]);
+            firstSet = true;
+          }
+        } catch {
+          temp[cat] = [];
+        }
+      }
+
+      setRows(temp);
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <main>
+      {featured && (
+        <div
+          className="hero"
+          style={{ backgroundImage: `url(${featured.image})` }}
+        >
+          <div className="hero-overlay">
+            <h1>{featured.title}</h1>
+            <button>Watch Now</button>
+          </div>
+        </div>
+      )}
+
+      {Object.entries(rows).map(([genre, movies]) => (
+        <section key={genre}>
+          <h2>{genre.toUpperCase()}</h2>
+          <MovieGrid movies={movies} />
+        </section>
+      ))}
+    </main>
+  );
 }
-
-
-export default HomePage;

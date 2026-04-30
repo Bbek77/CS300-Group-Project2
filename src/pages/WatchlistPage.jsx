@@ -1,38 +1,23 @@
-import React from 'react';
-import './HomePage.css';
-import './WatchlistPage.css';
+import { useEffect, useState } from "react";
+import MovieGrid from "../components/MovieGrid";
+import { getWatchlist } from "../utils/watchlist";
 
+export default function WatchlistPage() {
+  const [movies, setMovies] = useState([]);
 
-
-
-function WatchlistPage() {
-  const watchlists = [
-    { name: 'Weekend Picks', count: 6 },
-    { name: 'Sci-Fi Favorites', count: 12 },
-    { name: 'Must Watch TV', count: 4 }
-  ];
+  useEffect(() => {
+    setMovies(getWatchlist());
+  }, []);
 
   return (
-    <main style={{ padding: '2rem' }}>
+    <div>
       <h1>Watchlist</h1>
-      <p>Your saved watchlists and titles.</p>
 
-      <section aria-labelledby="watchlists-title" style={{ marginTop: '1.5rem' }}>
-        <h2 id="watchlists-title">Saved Watchlists</h2>
-        <ul>
-          {watchlists.map((watchlist) => (
-            <li key={watchlist.name}>
-              {watchlist.name} ({watchlist.count} items)
-            </li>
-          ))}
-        </ul>
-      </section>
-    </main>
+      {movies.length === 0 ? (
+        <p>No movies added yet</p>
+      ) : (
+        <MovieGrid movies={movies} />
+      )}
+    </div>
   );
 }
-
-
-
-
-export default WatchlistPage;
-

@@ -1,188 +1,76 @@
-.home-page {
-  min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, #13305e 0%, #040714 52%, #02050f 100%);
-  color: #f5f8ff;
-  padding: 1.2rem 3rem 3rem;
-  box-sizing: border-box;
+body {
+  background: #0b0f1a;
+  color: white;
+  font-family: Arial;
 }
 
-.home-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
+.home {
+  padding-bottom: 70px;
 }
 
-.brand {
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.nav-list {
-  display: flex;
-  gap: 1.2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-item {
-  color: #c9d4ef;
-  font-size: 0.92rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-}
-
-.nav-item:hover {
-  color: #ffffff;
-}
-
+/* HERO */
 .hero {
+  height: 300px;
+  background-size: cover;
+  border-radius: 12px;
+  margin: 20px;
   position: relative;
-  min-height: 340px;
-  border-radius: 18px;
-  overflow: hidden;
-  background: linear-gradient(105deg, #5b4f95 0%, #8e7cb6 40%, #d6a8ab 100%);
-  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.45);
-  display: flex;
-  align-items: flex-end;
 }
 
 .hero-overlay {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(3, 7, 19, 0.18) 0%, rgba(3, 7, 19, 0.85) 95%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 500px;
-  padding: 2rem;
-}
-
-.hero-kicker {
-  margin: 0;
-  font-size: 0.86rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #d9e7ff;
+  bottom: 20px;
+  left: 20px;
 }
 
 .hero h1 {
-  margin: 0.35rem 0 0.5rem;
-  font-size: 3rem;
-  line-height: 1;
+  font-size: 28px;
 }
 
-.hero-description {
-  margin: 0;
-  color: #e3e9f8;
-}
-
-.hero-button {
-  margin-top: 1.2rem;
+.hero button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border-radius: 20px;
   border: none;
-  border-radius: 999px;
-  padding: 0.7rem 1.4rem;
-  font-weight: 700;
-  color: #060b1c;
-  background: #ffffff;
+  background: white;
   cursor: pointer;
 }
 
-.studios {
-  margin-top: 1.8rem;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(120px, 1fr));
-  gap: 1rem;
-}
-
-.studio-tile {
-  height: 106px;
-  border-radius: 12px;
-  border: 1px solid rgba(187, 203, 236, 0.2);
-  background: linear-gradient(180deg, rgba(24, 36, 64, 0.8) 0%, rgba(16, 24, 44, 0.95) 100%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 8px 22px rgba(0, 0, 0, 0.35);
+/* CATEGORY */
+.category-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 12px;
+  padding: 10px 20px;
+  overflow-x: auto;
 }
 
-.studio-tile h2 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #f2f6ff;
-}
-
-.recommendations {
-  margin-top: 2rem;
-}
-
-.recommendations h2 {
-  margin: 0 0 0.9rem;
-  font-size: 1.25rem;
-}
-
-.recommendation-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(130px, 1fr));
-  gap: 1rem;
-}
-
-.recommendation-card {
+.category-card {
+  min-width: 120px;
+  padding: 20px;
+  text-align: center;
+  background: #1c2333;
   border-radius: 10px;
-  background: rgba(14, 22, 42, 0.88);
-  overflow: hidden;
-  border: 1px solid rgba(189, 206, 238, 0.16);
+  cursor: pointer;
 }
 
-.card-thumb {
-  height: 130px;
-  background: linear-gradient(135deg, #3d5588 0%, #5c6fa8 45%, #8ea1d2 100%);
+/* MOVIES */
+section {
+  padding: 10px 20px;
 }
 
-.recommendation-card h3 {
-  margin: 0;
-  padding: 0.6rem 0.65rem 0.8rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #ebf1ff;
+.movies-grid {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
 }
 
-@media (max-width: 1080px) {
-  .home-page {
-    padding: 1rem 1.5rem 2rem;
-  }
-
-  .studios,
-  .recommendation-grid {
-    grid-template-columns: repeat(3, minmax(140px, 1fr));
-  }
-}
-
-@media (max-width: 720px) {
-  .home-nav {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.7rem;
-  }
-
-  .nav-list {
-    flex-wrap: wrap;
-    gap: 0.8rem;
-  }
-
-  .hero h1 {
-    font-size: 2.3rem;
-  }
-
-  .studios,
-  .recommendation-grid {
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
-  }
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111827;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
 }
