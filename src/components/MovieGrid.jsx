@@ -1,29 +1,29 @@
-import { useRef } from "react";
 import MovieCard from "./MovieCard";
 
-export default function MovieGrid({ movies = [] }) {
-  const rowRef = useRef();
-
-  const scroll = (dir) => {
-    if (!rowRef.current) return;
-    rowRef.current.scrollLeft += dir === "left" ? -300 : 300;
-  };
+export default function MovieGrid({ movies = [], title }) {
+  if (!movies.length) {
+    return (
+      <p style={{ opacity: 0.8, padding: "0.5rem 0" }}>No movies found.</p>
+    );
+  }
 
   return (
-    <div className="movie-row-wrapper">
-      <button className="row-arrow left" onClick={() => scroll("left")}>
-        ❮
-      </button>
+    <section style={{ marginTop: "1.25rem" }}>
+      {title && (
+        <h2 style={{ margin: "0 0 0.9rem", fontSize: "1.25rem" }}>{title}</h2>
+      )}
 
-      <div className="movies-row" ref={rowRef}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))",
+          gap: "1rem",
+        }}
+      >
         {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>
-
-      <button className="row-arrow right" onClick={() => scroll("right")}>
-        ❯
-      </button>
-    </div>
+    </section>
   );
 }

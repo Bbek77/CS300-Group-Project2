@@ -1,25 +1,12 @@
-import { useAppContext } from "../context/AppContext";
-
-export default function RatingStars({ movieId }) {
-  const { ratings, rateMovie } = useAppContext();
-  const current = ratings[movieId] || 0;
-
+export default function RatingStars({ movieVoteAverage }) {
   return (
-    <div>
-      {[1, 2, 3, 4, 5].map((n) => (
-        <span
-          key={n}
-          onClick={() => rateMovie(movieId, n)}
-          style={{
-            cursor: "pointer",
-            color: n <= current ? "gold" : "gray",
-            fontSize: "18px",
-            marginRight: "4px"
-          }}
-        >
-          ★
-        </span>
-      ))}
+    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+      <strong>TMDB Rating</strong>
+      <span style={{ color: "#fbbf24" }}>
+        {typeof movieVoteAverage === "number"
+          ? `${movieVoteAverage.toFixed(1)}/10`
+          : "N/A"}
+      </span>
     </div>
   );
 }

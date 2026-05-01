@@ -1,64 +1,38 @@
-import { useState } from "react";
-import MovieGrid from "../components/MovieGrid";
-
-const API_KEY = "327acdc6";
+import LegacySearchContent from "../components/LegacySearchContent";
 
 export default function SearchPage() {
-  const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
+  return <LegacySearchContent />;
 
-  const handleSearch = async () => {
-    if (!query.trim()) return;
+  function SearchPage() {
+ const filters = ['All', 'Movies', 'TV Shows', 'Top Rated', 'Recently Added'];
 
-    setLoading(true);
 
-    try {
-      const res = await fetch(
-        `https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`
-      );
-      const data = await res.json();
+ return (
+   <main style={{ padding: '2rem' }}>
+     <h1>Search</h1>
+     <p>Find movies and shows using keywords and filters.</p>
 
-      const results =
-        data.Search?.map((m) => ({
-          id: m.imdbID,
-          title: m.Title,
-          image:
-            m.Poster !== "N/A"
-              ? m.Poster
-              : "https://via.placeholder.com/300x450",
-        })) || [];
 
-      setMovies(results);
-    } catch {
-      setMovies([]);
-    }
+     <section aria-labelledby="search-controls" style={{ marginTop: '1.5rem' }}>
+       <h2 id="search-controls">Search Controls</h2>
+       <input
+         type="text"
+         placeholder="Search titles..."
+         aria-label="Search titles"
+         style={{ padding: '0.5rem', minWidth: '260px' }}
+       />
 
-    setLoading(false);
-  };
 
-  return (
-    <div className="search-page">
-      {/* BIG SEARCH BAR */}
-      <div className="search-box">
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search movies, series..."
-          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        />
-
-        <button onClick={handleSearch}>🔍</button>
-      </div>
-
-      {/* STATUS */}
-      {loading && <p className="search-status">Searching...</p>}
-      {!loading && movies.length === 0 && query && (
-        <p className="search-status">No results found</p>
-      )}
-
-      {/* RESULTS */}
-      <MovieGrid movies={movies} />
-    </div>
-  );
+       <div style={{ marginTop: '1rem' }}>
+         <strong>Filters:</strong>
+         <ul>
+           {filters.map((filter) => (
+             <li key={filter}>{filter}</li>
+           ))}
+         </ul>
+       </div>
+     </section>
+   </main>
+ );
+}
 }
